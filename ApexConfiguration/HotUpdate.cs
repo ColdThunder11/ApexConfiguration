@@ -15,7 +15,6 @@ namespace ApexConfiguration
         readonly string VersionFilePath = Environment.CurrentDirectory + @"\Version.txt";
         const string VersionFileUrl = "https://coldthunder11.com/ApexConfiguration/HotUpdate/Version.txt";
         const string DllFileUrl = "https://coldthunder11.com/ApexConfiguration/HotUpdate/MainForm.dll";
-        const string PreConfigListUrl = "https://coldthunder11.com/ApexConfiguration/HotUpdate/PreConfigList.txt";
         string Version;
 
         public HotUpdate()
@@ -80,15 +79,6 @@ namespace ApexConfiguration
             //{
             //    MessageBox.Show("下载更新失败，请检查网络连接", "ApexConfiguration");
             //}
-        }
-        public void CheckPreConfigUpdate()
-        {
-            var request = WebRequest.Create(VersionFileUrl) as HttpWebRequest;
-            request.ProtocolVersion = HttpVersion.Version10;
-            var response = request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(responseStream);
-            string versionString = reader.ReadToEnd();
         }
     }
 }

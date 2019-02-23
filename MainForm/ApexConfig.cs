@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Net;
 
 namespace ApexConfiguration
 {
     static class ApexConfig
     {
+        const string PreConfigListUrl = "https://coldthunder11.com/ApexConfiguration/HotUpdate/PreConfigList.txt";
         public static Dictionary<string,string> Read2Dict(string[] configString)
         {
             var retDictionary = new Dictionary<string, string>();
@@ -36,6 +38,15 @@ namespace ApexConfiguration
             }
             outStr.Add("{");
             File.WriteAllLines(path, outStr);
+        }
+        public static void CheckPreConfigUpdate()
+        {
+            var request = WebRequest.Create(PreConfigListUrl) as HttpWebRequest;
+            request.ProtocolVersion = HttpVersion.Version10;
+            var response = request.GetResponse();
+            Stream responseStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream);
+            string versionString = reader.ReadToEnd();
         }
     }
 }
